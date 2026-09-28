@@ -1,0 +1,194 @@
+{
+ "title": "Randomlocke Pokémon",
+ "sub": "Reglas, combates y capturas de la run",
+ "copy": {
+  "brand": "RANDOMLOCKE",
+  "brandSub": "OWNER DASHBOARD",
+  "navRules": "Reglas",
+  "navMatches": "Combates",
+  "navRanking": "Posiciones",
+  "navGods": "Dioses",
+  "navPrivate": "Zona privada",
+  "heroKicker": "TABLERO DE RUN · GENERACIÓN ALEATORIA",
+  "publicTag": "Vista pública",
+  "playersTag": "jugadores",
+  "noWeek": "Sin semana",
+  "visualLabel": "VISUAL DE LA RUN",
+  "visualCaption": "Randomlocke Pokémon",
+  "soundtrackLabel": "BANDA SONORA",
+  "statPlayers": "Jugadores",
+  "statMatches": "Combates cargados",
+  "statResults": "Resultados",
+  "statDeaths": "Bajas totales",
+  "todayInProgress": "EN CURSO",
+  "todayPlanned": "PLANIFICADO",
+  "todayLimit": "Límite de hoy",
+  "todayNext": "Próximo límite",
+  "rulesEyebrow": "Reglamento de la run",
+  "rulesTitle": "Reglas",
+  "matchesEyebrow": "Calendario competitivo",
+  "matchesTitle": "Combates de la semana",
+  "rankingEyebrow": "Rendimiento de la run",
+  "rankingTitle": "Posiciones",
+  "godsEyebrow": "Salón de la fama",
+  "godsTitle": "Dioses de Locke",
+  "godsDescription": "Los Pokémon más destacados de cada semana, calificados por el propietario.",
+  "godsVoteButton": "Votar por este Pokémon",
+  "godsEmpty": "Todavía no hay candidatos para esta semana",
+  "deathsEyebrow": "Estado de la caja",
+  "deathsTitle": "Muertes por jugador",
+  "ownerKicker": "ZONA PRIVADA",
+  "ownerTitle": "Editor completo de la run",
+  "ownerDescription": "Los cambios quedan como borrador en este navegador. Exportá data.json y subilo al repositorio para publicarlos.",
+  "footerLeft": "RANDOMLOCKE · OWNER DASHBOARD",
+  "footerRight": "Página estática · editable solo por el propietario",
+  "accessNotice": "Tu cuenta puede consultar el dashboard, pero la zona privada requiere un correo autorizado por el propietario.",
+  "matchLabel": "COMBATE",
+  "matchResult": "RESULTADO",
+  "matchPending": "PENDIENTE",
+  "vs": "VS",
+  "tableRank": "#",
+  "tablePlayer": "Jugador",
+  "tableWins": "Ganadas",
+  "tableLosses": "Perdidas",
+  "deathPlayer": "JUGADOR",
+  "noLimit": "Todavía no hay un límite definido",
+  "addDatePrompt": "Agregá una fecha desde la zona privada.",
+  "checkingSession": "Comprobando sesión…",
+  "loginButton": "Iniciar sesión",
+  "logoutButton": "Salir",
+  "loadingText": "Cargando la run…",
+  "audioFallback": "Tu navegador no puede reproducir este audio."
+ },
+ "rules": [
+  "Cada Pokémon (salvaje, entrenadores, starters) está randomizado.",
+  "Solo podés capturar el primer Pokémon de cada ruta.",
+  "Si un Pokémon se debilita, queda muerto y va a la caja.",
+  "Todos los Pokémon llevan apodo."
+ ],
+ "heroUrl": null,
+ "music": [],
+ "players": [
+  {
+   "name": "Jugador 1",
+   "imageUrl": null
+  },
+  {
+   "name": "Jugador 2",
+   "imageUrl": null
+  },
+  {
+   "name": "Jugador 3",
+   "imageUrl": null
+  },
+  {
+   "name": "Jugador 4",
+   "imageUrl": null
+  },
+  {
+   "name": "Jugador 5",
+   "imageUrl": null
+  },
+  {
+   "name": "Jugador 6",
+   "imageUrl": null
+  },
+  {
+   "name": "Jugador 7",
+   "imageUrl": null
+  },
+  {
+   "name": "Jugador 8",
+   "imageUrl": null
+  },
+  {
+   "name": "Jugador 9",
+   "imageUrl": null
+  },
+  {
+   "name": "Jugador 10",
+   "imageUrl": null
+  },
+  {
+   "name": "Jugador 11",
+   "imageUrl": null
+  },
+  {
+   "name": "Jugador 12",
+   "imageUrl": null
+  },
+  {
+   "name": "Jugador 13",
+   "imageUrl": null
+  },
+  {
+   "name": "Jugador 14",
+   "imageUrl": null
+  }
+ ],
+ "gods": [],
+ "weeks": [
+  {
+   "n": "Semana 1",
+   "m": [
+    {
+     "a": 3,
+     "b": 8,
+     "w": ""
+    },
+    {
+     "a": 10,
+     "b": 12,
+     "w": ""
+    },
+    {
+     "a": 1,
+     "b": 6,
+     "w": ""
+    },
+    {
+     "a": 5,
+     "b": 9,
+     "w": ""
+    },
+    {
+     "a": 11,
+     "b": 7,
+     "w": ""
+    },
+    {
+     "a": 2,
+     "b": 0,
+     "w": ""
+    },
+    {
+     "a": 4,
+     "b": 13,
+     "w": ""
+    }
+   ]
+  }
+ ],
+ "deaths": [
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0
+ ],
+ "days": [
+  {
+   "d": "2026-09-28",
+   "t": "Ejemplo: hasta el Gimnasio 1"
+  }
+ ]
+}
