@@ -1,6 +1,6 @@
 {
  "title": "LigaLOCKE | Tablero",
- "sub": "Reglas, combates y capturas de la run",
+ "sub": "Reglas, combates y rankings",
  "copy": {
   "brand": "RANDOMLOCKE",
   "brandSub": "OWNER DASHBOARD",
@@ -70,59 +70,59 @@
  "music": [],
  "players": [
   {
-   "name": "Jugador 1",
+   "name": "Capitan Gato",
    "imageUrl": null
   },
   {
-   "name": "Jugador 2",
+   "name": "Juanchovich",
    "imageUrl": null
   },
   {
-   "name": "Jugador 3",
+   "name": "Javieer",
    "imageUrl": null
   },
   {
-   "name": "Jugador 4",
+   "name": "Benja",
    "imageUrl": null
   },
   {
-   "name": "Jugador 5",
+   "name": "Poeta",
    "imageUrl": null
   },
   {
-   "name": "Jugador 6",
+   "name": "ManuPK",
    "imageUrl": null
   },
   {
-   "name": "Jugador 7",
+   "name": "Sebastian",
    "imageUrl": null
   },
   {
-   "name": "Jugador 8",
+   "name": "Sebx",
    "imageUrl": null
   },
   {
-   "name": "Jugador 9",
+   "name": "Crisat",
    "imageUrl": null
   },
   {
-   "name": "Jugador 10",
+   "name": "Vicente",
    "imageUrl": null
   },
   {
-   "name": "Jugador 11",
+   "name": "Santi",
    "imageUrl": null
   },
   {
-   "name": "Jugador 12",
+   "name": "Agus",
    "imageUrl": null
   },
   {
-   "name": "Jugador 13",
+   "name": "Tito",
    "imageUrl": null
   },
   {
-   "name": "Jugador 14",
+   "name": "Mateo",
    "imageUrl": null
   }
  ],
@@ -169,6 +169,7 @@
    ]
   }
  ],
+ "editHash": "b736877814c66c0285d312ab56bcc14e10812811950b5f0f6f08070ad3f76517",
  "deaths": [
   0,
   0,
@@ -190,6 +191,5 @@
    "d": "2026-09-28",
    "t": "Ejemplo: hasta el Gimnasio 1"
   }
- ],
- "editHash": "b736877814c66c0285d312ab56bcc14e10812811950b5f0f6f08070ad3f76517"
+ ]
 }
