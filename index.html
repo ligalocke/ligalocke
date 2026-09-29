@@ -62,6 +62,16 @@
 #toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#15243a;border:1px solid var(--border);padding:10px 16px;border-radius:12px;z-index:99;font-size:.8rem;color:#fff}
 .death-ctl{display:flex;gap:8px;align-items:center}.death-ctl small{color:var(--muted)}
 @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+
+.lock-btn{background:none;border:1px solid var(--border);border-radius:10px;color:var(--muted);padding:5px 10px;font-size:.7rem;font-weight:800;opacity:.7;transition:opacity .2s}.lock-btn:hover{opacity:1;color:var(--text)}
+.code-back{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:20px;background:rgba(3,8,16,.72);backdrop-filter:blur(6px)}
+.code-box{width:min(380px,100%);padding:26px;border:1px solid var(--border);border-radius:20px;background:var(--surface);box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.code-box h3{margin:0 0 6px;font-size:1.15rem}.code-box p{margin:0 0 16px;color:var(--muted);font-size:.8rem}
+.code-box input{width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:12px;background:var(--surface-2);color:var(--text);font-size:1rem;letter-spacing:.12em}
+.code-box input:focus{outline:2px solid var(--blue);outline-offset:1px}.code-box.bad input{border-color:var(--pink);animation:shake .3s}
+.code-err{min-height:1.1em;margin:8px 0 0;color:var(--pink);font-size:.75rem;font-weight:700}
+.code-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:14px}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
 </style></head><body><div id="app"></div><div id="toast" hidden></div>
 <script>
 //DEF-START
@@ -76,11 +86,19 @@ const DEF={title:"Randomlocke Pokémon",sub:"Reglas, combates y capturas de la r
 rules:["Cada Pokémon (salvaje, entrenadores, starters) está randomizado.","Solo podés capturar el primer Pokémon de cada ruta.","Si un Pokémon se debilita, queda muerto y va a la caja.","Todos los Pokémon llevan apodo."],
 heroUrl:null,music:[],players:Array.from({length:14},(_,i)=>({name:"Jugador "+(i+1),imageUrl:null})),gods:[],
 weeks:[{n:"Semana 1",m:[[3,8],[10,12],[1,6],[5,9],[11,7],[2,0],[4,13]].map(([a,b])=>({a,b,w:""}))}],
-deaths:Array(14).fill(0),days:[{d:"2026-09-28",t:"Ejemplo: hasta el Gimnasio 1"}]};
+editHash:"b736877814c66c0285d312ab56bcc14e10812811950b5f0f6f08070ad3f76517",deaths:Array(14).fill(0),days:[{d:"2026-09-28",t:"Ejemplo: hasta el Gimnasio 1"}]};
 //DEF-END
 const LS="randomlocke-draft-v1",$=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>"&#"+c.charCodeAt(0)+";");
-let run,editing=/edit/.test(location.hash+location.search),godWeek=null,musIdx=0,animated=false,tt,sv;
+const sha256=s=>{const m=new TextEncoder().encode(s),K=[],h=[],P={};let n=0;for(let c=2;n<64;c++)if(!P[c]){for(let i=c*c;i<312;i+=c)P[i]=1;h[n]=Math.pow(c,.5)*4294967296|0;K[n++]=Math.pow(c,1/3)*4294967296|0}
+const l=m.length,w=[],z=((l+9+63)>>6)<<4;for(let i=0;i<z;i++)w[i]=0;for(let i=0;i<l;i++)w[i>>2]|=m[i]<<(24-(i%4)*8);w[l>>2]|=128<<(24-(l%4)*8);w[z-1]=l*8;
+const r=(x,k)=>x>>>k|x<<(32-k);
+for(let o=0;o<z;o+=16){const t=w.slice(o,o+16);for(let i=16;i<64;i++){const a=t[i-15],b=t[i-2];t[i]=(t[i-16]+(r(a,7)^r(a,18)^a>>>3)+t[i-7]+(r(b,17)^r(b,19)^b>>>10))|0}
+let[a,b,c,d,e,f,g,H]=h;for(let i=0;i<64;i++){const T=(H+(r(e,6)^r(e,11)^r(e,25))+((e&f)^(~e&g))+K[i]+t[i])|0,U=((r(a,2)^r(a,13)^r(a,22))+((a&b)^(a&c)^(b&c)))|0;H=g;g=f;f=e;e=(d+T)|0;d=c;c=b;b=a;a=(T+U)|0}
+[a,b,c,d,e,f,g,H].forEach((v,i)=>h[i]=(h[i]+v)|0)}
+return h.slice(0,8).map(v=>(v>>>0).toString(16).padStart(8,"0")).join("")};
+const SK="randomlocke-edit-session";
+let run,pub=DEF,askCode=false,codeBad=false,editing=(()=>{try{return sessionStorage.getItem(SK)=="1"}catch{return false}})(),godWeek=null,musIdx=0,animated=false,tt,sv;
 const norm=d=>({...structuredClone(DEF),...d,copy:{...COPY,...(d.copy||{})}});
 const toast=m=>{const t=$("#toast");t.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(()=>t.hidden=true,2800)};
 const save=()=>{clearTimeout(sv);sv=setTimeout(()=>{try{localStorage.setItem(LS,JSON.stringify(run))}catch{toast("Borrador muy pesado: exportá data.json y usá URLs para las imágenes")}},300)};
@@ -111,7 +129,7 @@ ${t?`<section class="music-player"><div class="music-player-title"><span class="
 <section id="ranking" class="content-card">${head(c.rankingEyebrow,c.rankingTitle,"🏆",st.length+" jugadores")}<div class="table-wrap"><table><thead><tr><th>${esc(c.tableRank)}</th><th>${esc(c.tablePlayer)}</th><th>${esc(c.tableWins)}</th><th>${esc(c.tableLosses)}</th></tr></thead><tbody>${st.map((s,i)=>`<tr><td><span class="rank ${i<3?"podium":""}">${i<3?["🥇","🥈","🥉"][i]:i+1}</span></td><td><span class="table-player">${av(s.p)}${esc(s.p.name)}</span></td><td><span class="win-score">${s.w}</span><span class="score-bar"><i style="width:${Math.min(100,s.w*28)}%"></i></span></td><td>${s.l}</td></tr>`).join("")}</tbody></table></div></section>
 <section id="gods" class="content-card gods-section">${head(c.godsEyebrow,c.godsTitle,"✦",gods.length?gods.length+" candidatos":"sin calificar")}<p class="section-intro">${esc(c.godsDescription)}</p><div class="god-week-tabs">${gn.map(w=>`<button class="${w==gw?"active":""}" data-gw="${esc(w)}">${esc(w)}</button>`).join("")}</div>${gods.length?`<div class="gods-grid">${gods.map((g,k)=>{const s=Math.max(0,Math.min(10,g.score));return `<article class="god-card"><div class="god-rank">${k+1}</div><div class="god-art">${g.imageUrl?`<img src="${esc(g.imageUrl)}" alt="${esc(g.pokemon)}">`:"<span>✦</span>"}</div><div class="god-copy"><div class="god-topline"><span>${esc(run.players[g.playerIndex]?.name||"Participante")}</span><b>${s}/10</b></div><h3>${esc(g.pokemon)}</h3>${g.note?`<p>${esc(g.note)}</p>`:""}<div class="god-stars">${"★".repeat(s)}<i>${"★".repeat(10-s)}</i></div></div></article>`}).join("")}</div>`:`<div class="empty-gods"><strong>${esc(c.godsEmpty)} · ${esc(gw)}</strong></div>`}</section>
 <section class="content-card">${head(c.deathsEyebrow,c.deathsTitle,"💀","total "+td)}<div class="deaths-grid">${run.players.map((p,i)=>`<div class="death-card"><span class="death-player">${av(p)}<span><small>${esc(c.deathPlayer)}</small>${esc(p.name)}</span></span><b>💀 ${run.deaths[i]||0}</b></div>`).join("")}</div></section>
-${editing?editor():""}</main><footer><span>${esc(c.footerLeft)}</span><span>${esc(c.footerRight)}</span></footer></div>`}
+${editing?editor():""}</main><footer><span>${esc(c.footerLeft)}</span><span>${esc(c.footerRight)}</span><button class="lock-btn" data-a="${editing?'lock':'askCode'}">${editing?"🔓 Salir de edición":"🔒 Modo edición"}</button></footer>${askCode?codeModal():""}</div>`}
 
 const inp=(p,v,x="")=>`<input data-p="${p}" value="${esc(v)}" ${x}>`;
 const num=(p,v,x="")=>`<input type="number" data-n data-p="${p}" value="${v}" ${x}>`;
@@ -120,10 +138,11 @@ const btn=(a,i="",j="",l="🗑",k="icon-button danger")=>`<button class="${k}" d
 const upl=k=>`<label class="upload-mini">📷<input type="file" accept="image/*" data-up="${k}"></label>`;
 const blk=(t,add,body,x="")=>`<div class="editor-block ${x}"><div class="editor-title"><span>${t}</span>${add||""}</div>${body}</div>`;
 
+function codeModal(){return `<div class="code-back" data-a="closeCode"><div class="code-box ${codeBad?"bad":""}"><h3>🔒 Modo edición</h3><p>Ingresá el código para editar la run.</p><input id="codeIn" type="password" autocomplete="off" placeholder="Código" aria-label="Código de acceso"><div class="code-err">${codeBad?"Código incorrecto":""}</div><div class="code-actions"><button class="ghost-button" data-a="closeCode">Cancelar</button><button class="primary-button" data-a="unlock">Entrar</button></div></div></div>`}
 function editor(){
 const c=run.copy,pl=run.players.map((p,i)=>[i,p.name]),wn=run.weeks.map(w=>[w.n,w.n]);
 return `<section id="owner-zone" class="owner-panel"><div class="owner-header"><div><p class="kicker">🔒 ${esc(c.ownerKicker)}</p><h2>👑 ${esc(c.ownerTitle)}</h2><p>${esc(c.ownerDescription)}</p></div></div>
-<div class="owner-editor-toolbar"><div><strong>Modo edición</strong><span>Borrador guardado en este navegador</span></div><span style="display:flex;gap:8px;flex-wrap:wrap"><label class="secondary-button">Importar JSON<input id="imp" type="file" accept=".json" hidden></label><button class="secondary-button" data-a="reset">Descartar borrador</button><button class="primary-button" data-a="export">⬇ Exportar data.json</button></span></div>
+<div class="owner-editor-toolbar"><div><strong>Modo edición</strong><span>Borrador guardado en este navegador</span></div><span style="display:flex;gap:8px;flex-wrap:wrap"><label class="secondary-button">Importar JSON<input id="imp" type="file" accept=".json" hidden></label><button class="secondary-button" data-a="setCode">Cambiar código</button><button class="secondary-button" data-a="reset">Descartar borrador</button><button class="ghost-button" data-a="lock">🔓 Salir</button><button class="primary-button" data-a="export">⬇ Exportar data.json</button></span></div>
 <div class="full-editor-grid">
 ${blk("Identidad de la run","",`<label>Título${inp("title",run.title)}</label><label>Subtítulo${inp("sub",run.sub)}</label><label>Imagen principal (URL, ruta del repo o subir)${inp("heroUrl",run.heroUrl||"",'placeholder="img/portada.jpg"')}</label><label class="upload-button">Subir imagen<input type="file" accept="image/*" data-up="hero"></label>${run.heroUrl?`<img class="editor-hero-preview" src="${esc(run.heroUrl)}" alt="">`:""}`)}
 ${blk("Música",`<button class="small-action" data-a="addTrack">+ Pista</button>`,`<p class="editor-hint">Enlace de YouTube o URL/ruta de un MP3 (ej: music/tema.mp3).</p>${(run.music||[]).map((t,i)=>`<div class="inline-editor">${inp(`music.${i}.name`,t.name,'placeholder="Nombre"')}${inp(`music.${i}.url`,t.url,'placeholder="https://youtube.com/…"')}${btn("delTrack",i)}</div>`).join("")}`)}
@@ -154,7 +173,18 @@ const g=e.target.closest("[data-gw]");if(g){godWeek=g.dataset.gw;render();return
 const t=e.target.closest("[data-a]");if(!t)return;const{a,i,j}=t.dataset;
 if(a=="export"){const b=new Blob([JSON.stringify(run,null,1)],{type:"application/json"}),l=document.createElement("a");l.href=URL.createObjectURL(b);l.download="data.json";l.click();return}
 if(a=="reset"){if(confirm("¿Descartar el borrador y volver a data.json?")){localStorage.removeItem(LS);location.reload()}return}
+if(a=="askCode"){askCode=true;codeBad=false;render();return}
+if(a=="closeCode"){if(e.target.closest(".code-box")&&!t.classList.contains("ghost-button"))return;askCode=false;render();return}
+if(a=="unlock"){tryUnlock();return}
+if(a=="lock"){lockEdit();return}
+if(a=="setCode"){const n=prompt("Nuevo código de acceso (mínimo 6 caracteres):");if(n===null)return;if(n.trim().length<6){toast("Muy corto: usá al menos 6 caracteres");return}run.editHash=sha256(n.trim());save();toast("Código cambiado: exportá data.json y publicalo para que aplique");return}
 A[a]?.(+i,+j);save();render()});
+const loadDraft=()=>{try{const s=localStorage.getItem(LS);if(s)run=norm(JSON.parse(s))}catch{}};
+function tryUnlock(){const v=($("#codeIn")?.value||"").trim();if(!v)return;
+if(sha256(v)===(pub.editHash||DEF.editHash)){editing=true;askCode=false;codeBad=false;try{sessionStorage.setItem(SK,"1")}catch{}loadDraft();render();setTimeout(()=>$("#owner-zone")?.scrollIntoView({behavior:"smooth"}),80)}
+else{codeBad=true;render()}}
+function lockEdit(){editing=false;try{sessionStorage.removeItem(SK)}catch{}run=norm(pub);render();scrollTo(0,0)}
+document.addEventListener("keydown",e=>{if(!askCode)return;if(e.key=="Escape"){askCode=false;render()}else if(e.key=="Enter"&&e.target.id=="codeIn")tryUnlock()});
 document.addEventListener("input",e=>{const t=e.target;if(t.id=="notes")localStorage.setItem(LS+"-notes",t.value);else if(t.dataset.p){setP(run,t.dataset.p,t.hasAttribute("data-n")?Number(t.value):t.value);save()}});
 document.addEventListener("change",async e=>{const t=e.target;
 if(t.id=="trk"){musIdx=+t.value;render()}
@@ -166,8 +196,9 @@ function fx(){if(animated)return;animated=true;
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.08});
 document.querySelectorAll(".content-card,.stat-card,.rule-card,.match-card,.god-card,.death-card,.today-card").forEach((el,i)=>{el.classList.add("rv");el.style.transitionDelay=(i%6)*45+"ms";io.observe(el)});
 document.querySelectorAll("[data-count]").forEach(el=>{const n=+el.dataset.count,t0=performance.now(),f=t=>{const p=Math.min(1,(t-t0)/900);el.textContent=Math.round(n*p*(2-p));if(p<1)requestAnimationFrame(f)};requestAnimationFrame(f)})}
-function render(){document.title=run.title;$("#app").innerHTML=view();fx()}
+function render(){document.title=run.title;$("#app").innerHTML=view();fx();if(askCode)$("#codeIn")?.focus()}
 (async()=>{let base=DEF;try{const r=await fetch("data.json",{cache:"no-store"});if(r.ok)base=await r.json()}catch{}
-run=norm(base);if(editing)try{const s=localStorage.getItem(LS);if(s)run=norm(JSON.parse(s))}catch{}
+pub=base;run=norm(base);if(editing)loadDraft();
+if(/edit/.test(location.hash+location.search)&&!editing)askCode=true;
 render()})();
 </script></body></html>
