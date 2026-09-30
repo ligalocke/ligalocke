@@ -71,59 +71,87 @@
  "players": [
   {
    "name": "Capitan Gato",
-   "imageUrl": null
+   "imageUrl": null,
+   "w0": 0,
+   "l0": 0
   },
   {
    "name": "Juanchovich",
-   "imageUrl": null
+   "imageUrl": null,
+   "w0": 0,
+   "l0": 0
   },
   {
    "name": "Javieer",
-   "imageUrl": null
+   "imageUrl": null,
+   "w0": 0,
+   "l0": 0
   },
   {
    "name": "Benja",
-   "imageUrl": null
+   "imageUrl": null,
+   "w0": 0,
+   "l0": 0
   },
   {
    "name": "Poeta",
-   "imageUrl": null
+   "imageUrl": null,
+   "w0": 0,
+   "l0": 0
   },
   {
    "name": "Manu",
-   "imageUrl": null
+   "imageUrl": null,
+   "w0": 0,
+   "l0": 0
   },
   {
    "name": "Sebastian",
-   "imageUrl": null
+   "imageUrl": null,
+   "w0": 0,
+   "l0": 0
   },
   {
    "name": "Sebxs",
-   "imageUrl": null
+   "imageUrl": null,
+   "w0": 0,
+   "l0": 0
   },
   {
    "name": "Crisat",
-   "imageUrl": null
+   "imageUrl": null,
+   "w0": 0,
+   "l0": 0
   },
   {
    "name": "Vicente",
-   "imageUrl": null
+   "imageUrl": null,
+   "w0": 0,
+   "l0": 0
   },
   {
    "name": "Santi",
-   "imageUrl": null
+   "imageUrl": null,
+   "w0": 0,
+   "l0": 0
   },
   {
    "name": "Agus",
-   "imageUrl": null
+   "imageUrl": null,
+   "w0": 0,
+   "l0": 0
   },
   {
    "name": "Tito",
-   "imageUrl": null
+   "imageUrl": null,
+   "w0": 0,
+   "l0": 0
   },
   {
    "name": "Mateo",
-   "imageUrl": null
+   "imageUrl": null,
+   "w0": 0,
+   "l0": 0
   }
  ],
  "gods": [],
