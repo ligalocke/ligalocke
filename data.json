@@ -51,6 +51,10 @@
   "tablePlayer": "Jugador",
   "tableWins": "Ganadas",
   "tableLosses": "Perdidas",
+  "tablePlayed": "PJ",
+  "tablePct": "% Vic.",
+  "tableForm": "Racha",
+  "tablePrior": "previas",
   "deathPlayer": "JUGADOR",
   "noLimit": "Todavía no hay un límite definido",
   "addDatePrompt": "Agregá una fecha desde la zona privada.",
@@ -72,86 +76,73 @@
   {
    "name": "Capitan Gato",
    "imageUrl": null,
-   "w0": 0,
-   "l0": 0
+   "w0": 1
   },
   {
    "name": "Juanchovich",
    "imageUrl": null,
-   "w0": 0,
-   "l0": 0
+   "l0": 1
   },
   {
    "name": "Javieer",
    "imageUrl": null,
-   "w0": 0,
-   "l0": 0
+   "l0": 0,
+   "w0": 1
   },
   {
    "name": "Benja",
    "imageUrl": null,
-   "w0": 0,
-   "l0": 0
+   "l0": 1
   },
   {
    "name": "Poeta",
    "imageUrl": null,
-   "w0": 0,
-   "l0": 0
+   "w0": 1
   },
   {
    "name": "Manu",
    "imageUrl": null,
-   "w0": 0,
-   "l0": 0
+   "l0": 1
   },
   {
    "name": "Sebastian",
    "imageUrl": null,
-   "w0": 0,
-   "l0": 0
+   "w0": 1
   },
   {
    "name": "Sebxs",
    "imageUrl": null,
-   "w0": 0,
-   "l0": 0
+   "l0": 1
   },
   {
    "name": "Crisat",
    "imageUrl": null,
-   "w0": 0,
-   "l0": 0
+   "w0": 1
   },
   {
    "name": "Vicente",
    "imageUrl": null,
-   "w0": 0,
-   "l0": 0
+   "l0": 1
   },
   {
    "name": "Santi",
    "imageUrl": null,
-   "w0": 0,
-   "l0": 0
+   "l0": 1
   },
   {
    "name": "Agus",
    "imageUrl": null,
-   "w0": 0,
-   "l0": 0
+   "w0": 1
   },
   {
    "name": "Tito",
    "imageUrl": null,
-   "w0": 0,
-   "l0": 0
+   "l0": 1
   },
   {
    "name": "Mateo",
    "imageUrl": null,
-   "w0": 0,
-   "l0": 0
+   "w0": 1
   }
  ],
  "gods": [],
